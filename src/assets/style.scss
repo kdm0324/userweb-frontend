@@ -1,0 +1,53 @@
+// 공통 변수
+$primary-color: #4CAF50;
+$border-color: #ccc;
+$disabled-color: #ccc;
+$disabled-text-color: #666;
+
+// 공통 스타일
+body {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #fff;
+}
+
+input, button {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid $border-color;
+
+  &:focus {
+    border-color: darken($border-color, 10%);
+  }
+}
+
+button {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: $disabled-color;
+    color: $disabled-text-color;
+  }
+}
+
+// 컴포넌트 스타일링
+.component-style {
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+// 각 컴포넌트에 대한 스타일링
+.identity-verification { @extend .component-style; }
+.terms-agreement { @extend .component-style; }
+.basic-info-form { @extend .component-style; }
+.signup-complete { @extend .component-style; }

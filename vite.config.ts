@@ -5,6 +5,9 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: 3000 // 원하는 포트 번호 설정
+  },
   plugins: [
     vue(),
   ],

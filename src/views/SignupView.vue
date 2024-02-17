@@ -3,67 +3,41 @@
         <div class="progress" :style="{ width: progressWidth }"></div>
     </div>
     <div class="signup-process">
-        <component :is="currentComponent" @updateStep="updateStep"></component>
+        <component :is="currentComponent" @updateStep="handleUpdateStep"></component>
     </div>
 </template>
-  
-<script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+<script setup lang="ts">
+import { ref, computed } from 'vue';
 import IdentityVerification from '../components/IndentityVerification.vue';
 import TermsAgreement from '../components/TermsAgreement.vue';
 import BasicInfoForm from '../components/BasicInfoForm.vue';
 import SignupComplete from '../components/SignupComplete.vue';
 
-export default defineComponent({
-    components: {
-        IdentityVerification,
-        TermsAgreement,
-        BasicInfoForm,
-        SignupComplete
-    },
-    props: {
-        step: {
-            type: Number,
-            default: 1,
-        },
+const step = ref(1);
+const totalSteps = 4;
 
-        totalSteps: {
-            type: Number,
-            default: 3
-        }
-    },
-    setup(props) {
+const components = [
+    IdentityVerification,
+    TermsAgreement,
+    BasicInfoForm,
+    SignupComplete
+];
 
-        const step = ref(0);
+const handleUpdateStep = (newStep: number | unknown) => {
+    step.value = newStep as number;
+};
 
-        const components = [
-            IdentityVerification,
-            TermsAgreement,
-            BasicInfoForm,
-            SignupComplete
-        ];
+const progressWidth = computed(() => ((step.value / totalSteps) * 100) + '%');
+const currentComponent = computed(() => components[step.value - 1]);
 
-        const updateStep = (newStep: number) => {
-            step.value = newStep;
-        };
-        const progressWidth = computed(() => {
-            console.log(step.value)
-            return ((step.value / props.totalSteps) * 100) + '%';
-        });
-
-        return { progressWidth, currentComponent: computed(() => components[step.value]), updateStep };
-
-    }
-});
 </script>
-
 <style lang="scss" scoped>
 .progress-bar {
     width: 100%;
     background-color: #e0e0e0;
 
     .progress {
-        height: 20px;
+        height: 10px;
         background-color: green;
     }
 }

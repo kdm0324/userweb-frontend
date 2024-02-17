@@ -12,6 +12,10 @@ const messages = {
         previous: "Previous",
         submit: "Submit"
         // 기타 영어 텍스트 추가
+      },
+      button: {
+        sendVerificationCode : "send Verification Code",
+        verify: "Verify"
       }
     },
     ko: {
@@ -25,6 +29,10 @@ const messages = {
         previous: "이전",
         submit: "가입하기"
         // 기타 한국어 텍스트 추가
+      },
+      button: {
+        sendVerificationCode : "인증 코드 발송",
+        verify: "완료"
       }
     }
     // 기타 언어 추가

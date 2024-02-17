@@ -3,40 +3,39 @@
         <h1>{{ $t('label.identityVerification') }}</h1>
         <form @submit.prevent="verifyIdentity">
             <input v-model="phoneNumber" type="tel" placeholder="Phone Number" />
-            <button type="submit">Send Verification Code</button>
+            <button type="submit">{{ $t('button.sendVerificationCode') }}</button>
         </form>
 
         <div v-if="codeSent">
             <input v-model="verificationCode" type="text" placeholder="Verification Code" />
-            <button @click="checkVerificationCode">Verify</button>
+            <button @click="checkVerificationCode">{{ $t('button.verify') }}</button>
         </div>
     </div>
 </template>
   
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 
-export default defineComponent({
-    setup(props, { emit }) {
-        const phoneNumber = ref('');
-        const verificationCode = ref('');
-        const codeSent = ref(false);
+// 'emit' 사용을 위해 `defineEmits` 사용
+const emit = defineEmits<{
+    (event: 'updateStep', newStep: number): void
+}>();
+const phoneNumber = ref('');
+const verificationCode = ref('');
+const codeSent = ref(false);
 
-        const verifyIdentity = () => {
-            // 인증 코드를 전송하는 로직 구현
-            console.log('Sending verification code to', phoneNumber.value);
-            codeSent.value = true;
-        };
+const verifyIdentity = () => {
+    // 인증 코드 전송 로직
+    console.log('Sending verification code to', phoneNumber.value);
+    codeSent.value = true;
+};
 
-        const checkVerificationCode = () => {
-            // 인증 코드 확인 로직 구현
-            console.log('Verifying code', verificationCode.value);
-            emit('updateStep', 1); // 다음 단계로 이동
-        };
+const checkVerificationCode = () => {
+    // 인증 코드 확인 로직
+    console.log('Verifying code', verificationCode.value);
+    emit('updateStep', 2); // 다음 단계로 이동
+};
 
-        return { phoneNumber, verificationCode, codeSent, verifyIdentity, checkVerificationCode };
-    }
-});
 </script>
   
 <style scoped>
